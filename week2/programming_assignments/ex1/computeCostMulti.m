@@ -14,7 +14,7 @@ J = 0;
 %               You should set J to the cost.
 
 const = 1/(2*m);                         % calculates the constant factor
-sum_of_squares = sum((X*theta - y).^2);  % calculates the sum of squared differences
+sum_of_squares = sum(((X*theta) - y).^2);  % calculates the sum of squared differences
 
 J = const * sum_of_squares;
 

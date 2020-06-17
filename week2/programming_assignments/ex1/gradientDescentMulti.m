@@ -16,15 +16,12 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCostMulti) and gradient here.
     %
-
-    const = 1/m;  % constant factor on the partial deriv.
     
-    % computing partial derivatives
-    partial_deriv = zeros(length(theta),1);
-    for j= 1:length(theta)
-        partial_deriv(j) = const * (X * theta - y)' * X(:,j);
+    const = alpha / m;
+    error = (X * theta) - y;
     
-    theta = theta - (alpha .* partial_deriv); 
+    % updating theta
+    theta = theta - const*(X'*error);
     
 
     % ============================================================
