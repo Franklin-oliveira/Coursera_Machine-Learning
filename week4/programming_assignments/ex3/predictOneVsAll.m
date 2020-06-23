@@ -30,11 +30,12 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+% transforming variable (predictions)
+z = X*all_theta';
+h = sigmoid(z);
 
-
-
-
-
+[x, prob_class] = max(h, [], 2);
+p = prob_class;
 
 % =========================================================================
 

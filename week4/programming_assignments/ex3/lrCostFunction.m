@@ -36,13 +36,23 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+% transforming variable
+z = X*theta;
+h = sigmoid(z);
 
+% cost function
+J = (1/m) .* (sum( (-y'*log(h))-(1-y)'*log(1-h) ));
 
+% regularizing cost function
+cost_regularization = sum((lambda/(2*m)).*(theta(2:length(theta)).^2));
+J = J + cost_regularization;
 
+% gradient
+grad = (1/m).*(X'*(h-y));
 
-
-
-
+% regularizing gradient (remember not to sum as you're deriving in relation to each theta)
+grad_regularization = (lambda/m) .* theta(2:length(theta)); 
+grad(2:length(grad)) = grad(2:length(grad)) + grad_regularization;
 
 
 % =============================================================

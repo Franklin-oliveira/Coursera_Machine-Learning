@@ -21,11 +21,16 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+%adding bias for the 1st hidden layer
+X = [ones(m,1) X];
+a2 = sigmoid(X * Theta1');
 
+%adding bias for 2nd hidden layer
+a2 = [ones(m,1) a2];
+a3 = sigmoid(a2 * Theta2');
 
-
-
-
+%prediction (class with higher probability)
+[~,p] = max(a3,[],2);
 
 
 
