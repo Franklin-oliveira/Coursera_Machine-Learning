@@ -62,23 +62,59 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%Step1 - feed forward
+a1 = [ones(m,1) X];  % adding bias
+a2 = sigmoid(Theta1*a1');
+
+a2 = [ones(m,1) a2'];  % adding bias
+a3 = sigmoid(Theta2*a2');
+
+% recoding the labels as vectors containing only values 0 or 1 
+y_recoded = zeros(num_labels, m);
+for i=1:m
+    y_recoded(y(i),i) = 1;
+end
+
+J = (-1/m) * sum ( sum ( (y_recoded) .* log(a3) + (1-y_recoded) .* log(1-a3) ));
 
 
+%Step3 - regularization
+Theta1_reg = Theta1(:,2:end);  % theta_0 should not be regularized
+Theta2_reg = Theta2(:,2:end);
+
+regularization = (lambda/(2*m)) * (sum(sum(Theta1_reg.^2)) + sum(sum(Theta2_reg.^2))); 
+
+% Cost Function (Regularized)
+J = J + regularization;
 
 
+%Step2 - Backpropagation
+for t=1:m
+    
+    %feed forward
+    a1 = [ones(m,1) X];  % adding bias
+    a1 = a1(t,:);
+    a2 = sigmoid(Theta1*a1');
 
+    a2 = [1 ; a2];  % adding bias
+    a3 = sigmoid(Theta2*a2);
 
+    % calculating deltas
+    delta3 = a3 - y_recoded(:,t);
+    delta2 = (Theta2'*delta3) .* sigmoidGradient([1;Theta1*a1']);
+    delta2 = delta2(2:end);  % removing delta2(0)
+    
+    % gradients
+    Theta2_grad = Theta2_grad + delta3 * a2';
+    Theta1_grad = Theta1_grad + delta2 * a1;
+end
 
+Theta2_grad = (1/m) * Theta2_grad;
+Theta1_grad = (1/m) * Theta1_grad;
 
-
-
-
-
-
-
-
-
-
+% regularizing the gradients
+Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + ((lambda/m) * Theta2(:, 2:end)); % j >= 1 
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + ((lambda/m) * Theta1(:, 2:end)); % for j >= 1 
 
 % -------------------------------------------------------------
 
