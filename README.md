@@ -6,7 +6,7 @@ In this repo I followed closely Andrew Ng's [Machine Learning course on Coursera
 
 I have finished the course at the same date I'm updating this `README` file (07/04/2020) and my certification can be verified in the following link:
 
-- [Verified certificate](coursera.org/verify/8FUVMLCKPZ6K). 
+- [Verified certificate](https://www.coursera.org/account/accomplishments/certificate/8FUVMLCKPZ6K). 
 
 
 ## Content
